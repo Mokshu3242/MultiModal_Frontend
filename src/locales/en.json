@@ -1,0 +1,37 @@
+{
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "en": "English",
+    "mr": "Marathi",
+    "hi": "Hindi"
+  },
+  "login": "Login",
+  "upload": "Upload",
+  "image": "Image",
+  "audio": "Audio",
+  "documents": "Documents",
+  "messagePlaceholder": "Message MultiGPT...",
+  "record": "Record",
+  "send": "Send",
+  "audioChat": "Audio Chat",
+  "chatHistory": "Chat History",
+  "newChat": "New Chat",
+  "uploadButtonTitle": "Upload",
+  "recordButtonTitle": "Record",
+  "sendButtonTitle": "Send",
+  "audioChatButtonTitle": "Audio Chat",
+  "noHistoryAvailable": "No chat history available.",
+  "currentChat": "Current Chat",
+  "storedDocuments": "📂 Stored Documents",
+  "loadingDocuments": "Loading documents...",
+  "noDocumentsFound": "No documents found.",
+  "openChat": "Open Chat",
+  "delete": "Delete",
+  "close": "Close",
+  "logout": "Logout",
+  "loadingDocumentContent": "Loading document content..."
+}

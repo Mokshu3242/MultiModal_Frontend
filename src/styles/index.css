@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .border-border {
+    border-color: theme('colors.border'); /* Adjust as necessary */
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+th, td {
+  padding: 0.5rem;
+  border: 1px solid #ffffff;
+  text-align: left;
+}
+
+th {
+  background-color: #837f7f;
+  font-weight: bold;
+}
+
+.InputStuff{
+  border:1px solid white; padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Custom Scrollbar Styles for Webkit Browsers (Chrome, Safari) */
+textarea::-webkit-scrollbar {
+  width: 1px; /* Ultra-thin scrollbar */
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 2px; /* Slightly rounded to look more like a thread */
+}
+
+textarea::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+@keyframes rotate-3d {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -15px) scale(1.1); }
+}
+
+@keyframes ring-expand {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes progress-ring {
+  0% { stroke-dashoffset: 314; }
+  50% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -314; }
+}
+
+.animate-rotate-3d {
+  animation: rotate-3d 20s linear infinite;
+}
+
+.animate-particle-float {
+  animation: particle-float 6s ease-in-out infinite;
+}
+
+.animate-ring-expand {
+  animation: ring-expand 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-progress-ring {
+  animation: progress-ring 3s linear infinite;
+}
+
+/* Make the scrollbar thin and hidden by default */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px; /* Adjust the width to make the scrollbar thinner */
+}
+
+/* Thumb style for thin scrollbar */
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #888; /* Set thumb color */
+  border-radius: 10px; /* Rounded corners for the thumb */
+  transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Track style (background of the scrollbar) */
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent; /* Make the track transparent */
+}
+
+/* On hover or scroll, show the scrollbar */
+.scrollbar-thin:hover::-webkit-scrollbar {
+  opacity: 1;
+}
+
+/* Smooth scroll */
+.smooth-scroll {
+  scrollbar-width:thin;
+  scrollbar-color: #888 transparent;
+}
+
+/* Firefox smooth scroll */
+.smooth-scroll:hover {
+  scrollbar-width: thin;
+}
