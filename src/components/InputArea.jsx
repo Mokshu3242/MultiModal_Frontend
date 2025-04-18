@@ -160,9 +160,25 @@ export default function InputArea({ sendMessage, setMessages, chatId }) {
     setFiles([]);
   };
 
-  // Handle file uploads
+  // Handle file uploads with 2MB limit for documents
   const handleFileUpload = (event) => {
-    const newFiles = Array.from(event.target.files);
+    const newFiles = Array.from(event.target.files).filter(file => {
+      // Check if file is a document type and under 2MB (2 * 1024 * 1024 bytes)
+      const isDocument = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      ].includes(file.type);
+      
+      if (isDocument && file.size > 2 * 1024 * 1024) {
+        alert(`File ${file.name} exceeds 2MB limit and won't be uploaded`);
+        return false;
+      }
+      return true;
+    });
+    
     setFiles([...files, ...newFiles]);
   };
 
@@ -434,5 +450,5 @@ export default function InputArea({ sendMessage, setMessages, chatId }) {
 InputArea.propTypes = {
   sendMessage: PropTypes.func.isRequired,
   setMessages: PropTypes.func.isRequired,
-  chatId: PropTypes.string.isRequired, // Ensure chatId is passed
+  chatId: PropTypes.string.isRequired,
 };
