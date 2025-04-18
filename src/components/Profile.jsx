@@ -167,37 +167,37 @@ const Profile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto mt-20">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto mt-10">
         {!isEditing ? (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 sm:p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-4 sm:p-6 md:p-8">
             {user && (
               <div className="flex flex-col items-center">
-                <div className="relative mb-6">
+                <div className="relative mb-4 sm:mb-6">
                   <img
                     src={user.profilePic || "https://via.placeholder.com/150"}
                     alt="Profile"
-                    className="w-32 h-32 rounded-full object-cover border-4 border-blue-500 dark:border-blue-600"
+                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-blue-500 dark:border-blue-600"
                   />
                 </div>
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-1 sm:mb-2">
                     {user.name}
                   </h2>
-                  <p className="text-lg text-gray-600 dark:text-gray-300">
+                  <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300">
                     {user.email}
                   </p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4 w-full max-w-xs">
+                <div className="flex flex-col sm:flex-row gap-3 w-full max-w-xs">
                   <button
                     onClick={() => setIsEditing(true)}
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors duration-200"
+                    className="px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors duration-200 text-sm sm:text-base"
                   >
                     Edit Profile
                   </button>
                   <button
                     onClick={() => setShowDeleteConfirm(true)}
-                    className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-medium transition-colors duration-200"
+                    className="px-4 py-2 sm:px-6 sm:py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-medium transition-colors duration-200 text-sm sm:text-base"
                   >
                     Delete Account
                   </button>
@@ -208,23 +208,23 @@ const Profile = () => {
             {/* Delete Confirmation Modal */}
             {showDeleteConfirm && (
               <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6">
-                  <h3 className="text-xl font-bold mb-4 text-red-600 dark:text-red-400">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 text-red-600 dark:text-red-400">
                     Confirm Account Deletion
                   </h3>
-                  <p className="mb-6 text-gray-700 dark:text-gray-300">
+                  <p className="mb-4 sm:mb-6 text-sm sm:text-base text-gray-700 dark:text-gray-300">
                     This action cannot be undone. All your data will be permanently deleted.
                   </p>
                   
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <div className="mb-3 sm:mb-4">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                       Enter your password to confirm:
                     </label>
                     <input
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                       placeholder="Your password"
                       autoFocus
                     />
@@ -234,30 +234,30 @@ const Profile = () => {
                     <button
                       onClick={sendOtp}
                       disabled={isSendingOtp || !password}
-                      className={`w-full mb-4 px-4 py-2 rounded-md text-white font-medium ${isSendingOtp || !password ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                      className={`w-full mb-3 sm:mb-4 px-3 py-2 sm:px-4 sm:py-2 rounded-md text-white font-medium text-sm sm:text-base ${isSendingOtp || !password ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
                     >
                       {isSendingOtp ? "Sending OTP..." : "Send OTP Verification"}
                     </button>
                   ) : (
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <div className="mb-3 sm:mb-4">
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                         Enter OTP sent to your email:
                       </label>
                       <input
                         type="text"
                         value={otp}
                         onChange={(e) => setOtp(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                        className="w-full px-3 py-2 sm:px-4 sm:py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm sm:text-base"
                         placeholder="6-digit OTP"
                       />
                     </div>
                   )}
 
                   {error && (
-                    <div className="mb-4 text-red-500 text-sm">{error}</div>
+                    <div className="mb-3 sm:mb-4 text-red-500 text-xs sm:text-sm">{error}</div>
                   )}
 
-                  <div className="flex justify-end gap-3 mt-6">
+                  <div className="flex justify-end gap-2 sm:gap-3 mt-4 sm:mt-6">
                     <button
                       onClick={() => {
                         setShowDeleteConfirm(false);
@@ -266,14 +266,14 @@ const Profile = () => {
                         setError(null);
                         setShowOtpField(false);
                       }}
-                      className="px-4 py-2 bg-gray-500 hover:bg-gray-600 rounded-md text-white font-medium"
+                      className="px-3 py-1 sm:px-4 sm:py-2 bg-gray-500 hover:bg-gray-600 rounded-md text-white font-medium text-sm sm:text-base"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={handleDeleteAccount}
                       disabled={!password || !otp || isDeleting}
-                      className={`px-4 py-2 rounded-md text-white font-medium ${!password || !otp || isDeleting ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}`}
+                      className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md text-white font-medium text-sm sm:text-base ${!password || !otp || isDeleting ? 'bg-gray-500 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'}`}
                     >
                       {isDeleting ? "Deleting..." : "Delete Account"}
                     </button>
@@ -283,38 +283,38 @@ const Profile = () => {
             )}
           </div>
         ) : (
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-6 sm:p-8">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden p-4 sm:p-6 md:p-8">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-6 sm:mb-8">
               Edit Profile
             </h2>
-            <form onSubmit={updateProfile} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={updateProfile} className="space-y-4 sm:space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                     Full Name
                   </label>
                   <input
                     type="text"
                     value={user.name}
                     onChange={(e) => setUser({ ...user, name: e.target.value })}
-                    className="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                     Email Address
                   </label>
                   <input
                     type="email"
                     value={user.email}
                     onChange={(e) => setUser({ ...user, email: e.target.value })}
-                    className="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                     Profile Picture (Upload File)
                   </label>
                   <input
@@ -328,12 +328,12 @@ const Profile = () => {
                         reader.readAsDataURL(file);
                       }
                     }}
-                    className="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-600 dark:file:text-gray-200"
+                    className="w-full px-3 py-2 sm:px-4 sm:py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer file:mr-2 sm:file:mr-4 file:py-1 sm:file:py-2 file:px-2 sm:file:px-4 file:rounded file:border-0 file:text-xs sm:file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-600 dark:file:text-gray-200 text-sm sm:text-base"
                     accept="image/*"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1 sm:mb-2">
                     Profile Picture (Image URL)
                   </label>
                   <div className="flex gap-2">
@@ -341,13 +341,13 @@ const Profile = () => {
                       type="text"
                       value={imageUrl}
                       onChange={(e) => setImageUrl(e.target.value)}
-                      className="flex-1 px-4 py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="flex-1 px-3 py-2 sm:px-4 sm:py-2 rounded-lg bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
                       placeholder="https://example.com/image.jpg"
                     />
                     <button
                       type="button"
                       onClick={() => setUser({ ...user, profilePic: imageUrl })}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium"
+                      className="px-3 py-2 sm:px-4 sm:py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium text-sm sm:text-base"
                     >
                       Apply
                     </button>
@@ -355,17 +355,17 @@ const Profile = () => {
                 </div>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-3 sm:pt-4">
                 <button
                   type="submit"
-                  className="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors duration-200"
+                  className="flex-1 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-medium transition-colors duration-200 text-sm sm:text-base"
                 >
                   Update Profile
                 </button>
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="flex-1 px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg text-white font-medium transition-colors duration-200"
+                  className="flex-1 px-4 py-2 sm:px-6 sm:py-3 bg-gray-600 hover:bg-gray-700 rounded-lg text-white font-medium transition-colors duration-200 text-sm sm:text-base"
                 >
                   Cancel
                 </button>

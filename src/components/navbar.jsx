@@ -20,10 +20,18 @@ export function NavBar() {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const effectiveTheme = theme === "system" ? resolvedTheme : theme;
 
-  // Function to update user's language preference on the server
   const updateUserLanguage = async (lng) => {
     try {
       const response = await fetch(
@@ -49,15 +57,13 @@ export function NavBar() {
     }
   };
 
-  // Function to change language
   const changeLanguage = (lng) => {
     i18n
       .changeLanguage(lng)
       .then(() => {
-        setLang(lng); // Update state
-        localStorage.setItem("selectedLanguage", lng); // Save to localStorage
+        setLang(lng);
+        localStorage.setItem("selectedLanguage", lng);
 
-        // Update language on server if user is authenticated
         if (isAuthenticated) {
           updateUserLanguage(lng);
         }
@@ -67,10 +73,8 @@ export function NavBar() {
       });
   };
 
-  // Check if user is authenticated
   const isAuthenticated = localStorage.getItem("isAuthenticated");
 
-  // Handle logout
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("isAuthenticated");
@@ -79,21 +83,19 @@ export function NavBar() {
     window.location.reload();
   };
 
-  // On component mount, retrieve language from localStorage or default to "en"
   useEffect(() => {
     const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
-    console.log("Retrieved language from localStorage:", savedLanguage); // Debugging
+    console.log("Retrieved language from localStorage:", savedLanguage);
     i18n
       .changeLanguage(savedLanguage)
       .then(() => {
-        setLang(savedLanguage); // Set language in state
+        setLang(savedLanguage);
       })
       .catch((error) => {
         console.error("Error changing language:", error);
       });
   }, [i18n]);
 
-  // Fetch user profile if authenticated
   useEffect(() => {
     if (isAuthenticated) {
       const fetchProfile = async () => {
@@ -111,7 +113,6 @@ export function NavBar() {
           if (data.success) {
             setUser(data.user);
 
-            // Set language from user profile or localStorage, default to "en"
             const savedLanguage =
               data.user.language ||
               localStorage.getItem("selectedLanguage") ||
@@ -119,8 +120,8 @@ export function NavBar() {
             i18n
               .changeLanguage(savedLanguage)
               .then(() => {
-                setLang(savedLanguage); // Update state
-                localStorage.setItem("selectedLanguage", savedLanguage); // Save to localStorage
+                setLang(savedLanguage);
+                localStorage.setItem("selectedLanguage", savedLanguage);
               })
               .catch((error) => {
                 console.error("Error changing language:", error);
@@ -136,7 +137,7 @@ export function NavBar() {
   }, [isAuthenticated, navigate, i18n]);
 
   return (
-    <div className="flex justify-between items-center p-4 w-full h-10">
+    <div className="flex justify-between items-center p-4 w-full h-16 md:h-10">
       <Link
         onClick={() => {
           localStorage.removeItem("selectedDocument");
@@ -147,8 +148,9 @@ export function NavBar() {
         className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 transition-all duration-300 ease-in-out transform group-hover:opacity-90 group-hover:scale-105"
       >
         <span
-          className={`text-lg font-semibold cursor-pointer animate-pulse font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 transform transition-all duration-300 ease-in-out group-hover:scale-105 group-hover:opacity-90 ${effectiveTheme === "dark" ? "text-white" : "text-black"
-            } relative group`}
+          className={`text-lg font-semibold cursor-pointer animate-pulse font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 transform transition-all duration-300 ease-in-out group-hover:scale-105 group-hover:opacity-90 ${
+            effectiveTheme === "dark" ? "text-white" : "text-black"
+          } relative group`}
         >
           <p className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 transition-all duration-300 ease-in-out transform group-hover:opacity-90 group-hover:scale-105">
             MULTIGPT
@@ -156,27 +158,26 @@ export function NavBar() {
           <span className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 opacity-10 transform scale-105 blur-md"></span>
         </span>
       </Link>
-      <div className="flex items-center ml-auto space-x-6">
+      
+      <div className="flex items-center ml-auto space-x-2 md:space-x-6">
         {/* Theme Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              size="icon"
+              size={isMobile ? "sm" : "icon"}
               aria-label="Toggle theme"
               className="flex relative justify-center items-center p-2 bg-gradient-to-br rounded-full transition-all duration-300 hover:shadow-lg focus:ring-2 focus:ring-offset-2 from-primary to-primary-foreground focus:ring-primary"
             >
               <Sun
-                className={`h-5 w-5 transition-transform duration-500 ${effectiveTheme === "dark"
-                    ? "rotate-90 scale-0"
-                    : "rotate-0 scale-100"
-                  }`}
+                className={`h-4 w-4 md:h-5 md:w-5 transition-transform duration-500 ${
+                  effectiveTheme === "dark" ? "rotate-90 scale-0" : "rotate-0 scale-100"
+                }`}
               />
               <Moon
-                className={`absolute h-5 w-5 transition-transform duration-500 ${effectiveTheme === "light"
-                    ? "rotate-90 scale-0"
-                    : "rotate-0 scale-100"
-                  }`}
+                className={`absolute h-4 w-4 md:h-5 md:w-5 transition-transform duration-500 ${
+                  effectiveTheme === "light" ? "rotate-90 scale-0" : "rotate-0 scale-100"
+                }`}
               />
               <span className="sr-only">Toggle theme</span>
             </Button>
@@ -184,22 +185,23 @@ export function NavBar() {
 
           <DropdownMenuContent
             align="end"
-            className={`rounded-lg shadow-xl p-2 backdrop-blur-md transition-all duration-300 ${effectiveTheme === "dark"
-                ? "bg-gray-800/80 text-white"
-                : "bg-white/80 text-gray-900"
-              }`}
+            className={`rounded-lg shadow-xl p-2 backdrop-blur-md transition-all duration-300 ${
+              effectiveTheme === "dark" ? "bg-gray-800/80 text-white" : "bg-white/80 text-gray-900"
+            }`}
           >
             <DropdownMenuItem
               onClick={() => setTheme("light")}
-              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${theme === "light" ? "bg-gray-200 dark:bg-gray-700" : ""
-                } hover:bg-gray-100 dark:hover:bg-gray-600`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${
+                theme === "light" ? "bg-gray-200 dark:bg-gray-700" : ""
+              } hover:bg-gray-100 dark:hover:bg-gray-600`}
             >
               <Sun className="w-4 h-4" /> {t("theme.light")}
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => setTheme("dark")}
-              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${theme === "dark" ? "bg-gray-200 dark:bg-gray-700" : ""
-                } hover:bg-gray-100 dark:hover:bg-gray-600`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${
+                theme === "dark" ? "bg-gray-200 dark:bg-gray-700" : ""
+              } hover:bg-gray-100 dark:hover:bg-gray-600`}
             >
               <Moon className="w-4 h-4" /> {t("theme.dark")}
             </DropdownMenuItem>
@@ -211,7 +213,7 @@ export function NavBar() {
           <DropdownMenuTrigger asChild>
             <Button
               variant="outline"
-              size="sm"
+              size={isMobile ? "sm" : "default"}
               className="flex relative justify-center items-center p-2 bg-gradient-to-br rounded-full transition-all duration-300 hover:shadow-lg focus:ring-2 focus:ring-offset-2 from-primary to-primary-foreground focus:ring-primary"
             >
               {lang.toUpperCase()}
@@ -220,18 +222,18 @@ export function NavBar() {
 
           <DropdownMenuContent
             align="end"
-            className={`rounded-lg shadow-xl p-2 backdrop-blur-md transition-all duration-300 ${effectiveTheme === "dark"
-                ? "bg-gray-800/80 text-white"
-                : "bg-white/80 text-gray-900"
-              }`}
+            className={`rounded-lg shadow-xl p-2 backdrop-blur-md transition-all duration-300 ${
+              effectiveTheme === "dark" ? "bg-gray-800/80 text-white" : "bg-white/80 text-gray-900"
+            }`}
           >
             <DropdownMenuItem
               onClick={() => {
                 changeLanguage("en");
                 setTimeout(() => window.location.reload(), 200);
               }}
-              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${lang === "en" ? "bg-gray-200 dark:bg-gray-700" : ""
-                } hover:bg-gray-100 dark:hover:bg-gray-600`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${
+                lang === "en" ? "bg-gray-200 dark:bg-gray-700" : ""
+              } hover:bg-gray-100 dark:hover:bg-gray-600`}
             >
               {t("language.en")}
             </DropdownMenuItem>
@@ -240,8 +242,9 @@ export function NavBar() {
                 changeLanguage("mr");
                 setTimeout(() => window.location.reload(), 200);
               }}
-              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${lang === "mr" ? "bg-gray-200 dark:bg-gray-700" : ""
-                } hover:bg-gray-100 dark:hover:bg-gray-600`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${
+                lang === "mr" ? "bg-gray-200 dark:bg-gray-700" : ""
+              } hover:bg-gray-100 dark:hover:bg-gray-600`}
             >
               {t("language.mr")}
             </DropdownMenuItem>
@@ -250,8 +253,9 @@ export function NavBar() {
                 changeLanguage("hi");
                 setTimeout(() => window.location.reload(), 200);
               }}
-              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${lang === "hi" ? "bg-gray-200 dark:bg-gray-700" : ""
-                } hover:bg-gray-100 dark:hover:bg-gray-600`}
+              className={`flex items-center gap-2 p-2 rounded-lg transition-colors duration-300 ${
+                lang === "hi" ? "bg-gray-200 dark:bg-gray-700" : ""
+              } hover:bg-gray-100 dark:hover:bg-gray-600`}
             >
               {t("language.hi")}
             </DropdownMenuItem>
@@ -265,7 +269,7 @@ export function NavBar() {
               <img
                 src={user.profilePic || "../assets/users.webp"}
                 alt="Avatar"
-                className="w-11 h-11 rounded-full border-4 shadow-md transition-all duration-300 hover:scale-105 border-primary"
+                className="w-8 h-8 md:w-11 md:h-11 rounded-full border-2 md:border-4 shadow-md transition-all duration-300 hover:scale-105 border-primary"
               />
             </PopoverTrigger>
 

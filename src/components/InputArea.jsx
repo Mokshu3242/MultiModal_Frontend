@@ -297,7 +297,7 @@ export default function InputArea({ sendMessage, setMessages, chatId }) {
           </Button>
 
           {showUploadMenu && (
-            <div className="flex absolute left-2 bottom-16 z-20 flex-col gap-2 p-2 bg-white rounded-xl border shadow-xl upload-menu border-gray-200/50 dark:bg-[#1F2937]">
+            <div className="flex absolute left-2 bottom-16 z-0 flex-col gap-2 p-2 bg-white rounded-xl border shadow-xl upload-menu border-gray-200/50 dark:bg-[#1F2937]">
               {/* Document Upload Button */}
               <label
                 className="flex gap-3 items-center py-2.5 px-4 rounded-lg transition-colors cursor-pointer hover:bg-gray-100/50"

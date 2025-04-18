@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ArrowLeft } from "lucide-react"; 
+import { ArrowLeft } from "lucide-react";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -37,16 +37,13 @@ const Register = () => {
 
     setIsSendingOtp(true);
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/v1/otp/request`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const response = await fetch(`http://localhost:8000/api/v1/otp/request`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
 
       const data = await response.json();
 
@@ -116,13 +113,13 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center p-4">
       <button
-          onClick={() => navigate(-1)}
-          className="absolute top-4 left-4 text-gray-300 hover:text-white"
-          aria-label="Go back"
-        >
-          <ArrowLeft size={24} />
-        </button>
-      <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 text-gray-300 hover:text-white"
+        aria-label="Go back"
+      >
+        <ArrowLeft size={24} />
+      </button>
+      <div className="w-full max-w-md p-6 bg-gray-900 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-white">Sign Up</h2>
         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
         <form onSubmit={handleSubmit} className="mt-4">
@@ -132,7 +129,7 @@ const Register = () => {
             onChange={(e) => setName(e.target.value)}
             placeholder="Name"
             required
-            className="w-full p-3 mb-3 bg-gray-700 rounded text-white placeholder-gray-400"
+            className="w-full p-3 mb-3 bg-gray-800 border border-gray-700 rounded text-white placeholder-gray-400"
           />
           <div className="flex mb-3">
             <input
@@ -141,7 +138,7 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
               required
-              className="flex-1 p-3 bg-gray-700 rounded-l text-white placeholder-gray-400"
+              className="flex-1 p-3 bg-gray-800 border border-gray-700 rounded-l text-white placeholder-gray-400"
               disabled={showOtpField}
             />
             <button
@@ -161,7 +158,7 @@ const Register = () => {
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter OTP"
               required
-              className="w-full p-3 mb-3 bg-gray-700 rounded text-white placeholder-gray-400"
+              className="w-full p-3 mb-3 bg-gray-800 border border-gray-700 rounded text-white placeholder-gray-400"
             />
           )}
 
@@ -173,7 +170,7 @@ const Register = () => {
               placeholder="Password"
               required
               minLength={8}
-              className="w-full p-3 pr-10 bg-gray-700 rounded text-white placeholder-gray-400"
+              className="w-full p-3 pr-10 bg-gray-800 border border-gray-700 rounded text-white placeholder-gray-400"
             />
             <button
               type="button"
@@ -233,13 +230,13 @@ const Register = () => {
                 setPreview(e.target.value);
               }}
               placeholder="Profile Pic URL"
-              className="w-full p-3 mb-2 bg-gray-700 rounded text-white placeholder-gray-400"
+              className="w-full p-3 mb-2 bg-gray-800 border border-gray-700 rounded text-white placeholder-gray-400"
             />
             <input
               type="file"
               accept="image/*"
               onChange={handleImageUpload}
-              className="w-full p-2 bg-gray-700 rounded text-white cursor-pointer"
+              className="w-full p-2 bg-gray-800 border border-gray-700 rounded text-white cursor-pointer"
             />
           </div>
 
