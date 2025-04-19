@@ -144,7 +144,11 @@ const Profile = () => {
       }
 
       toast.success("Account deleted successfully");
-      navigate("/LandingPage");
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("isAuthenticated");
+      setAvatarOpen(false);
+      navigate("/Landingpage");
+      window.location.reload();
 
     } catch (error) {
       console.error("Delete error:", error);
