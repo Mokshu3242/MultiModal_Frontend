@@ -64,7 +64,7 @@ export default function LandingPage() {
                 Get Started Free
               </Button>
             </Link>
-            <Link to="/demo" className="w-full sm:w-auto">
+            <Link to="https://youtu.be/XLyAPlee8Og" target="_blank" className="w-full sm:w-auto">
               <Button
                 variant="outline"
                 className="text-gray-300 border-gray-600 hover:border-gray-500 bg-gray-800 hover:bg-gray-700 hover:text-white px-8 py-4 md:px-10 md:py-4 text-base md:text-lg font-medium rounded-lg transition-all w-full sm:w-auto"
