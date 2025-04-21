@@ -37,7 +37,7 @@ const Register = () => {
 
     setIsSendingOtp(true);
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/otp/request`, {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/--/api/v1/otp/request`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const Register = () => {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/api/v1/user/auth/register`,
+        `${import.meta.env.VITE_API_BASE_URL}/--/api/v1/user/auth/register`,
         {
           method: "POST",
           headers: {
